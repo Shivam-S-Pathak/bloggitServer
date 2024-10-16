@@ -18,7 +18,7 @@ app.use(
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", Router);
-const PORT = 9000;
+// const PORT = 9000;
 const USERNAME = process.env.DB_USERNAME;
 const PASSWORD = process.env.DB_PASSWORD;
 
@@ -27,4 +27,4 @@ app.get('/',(req,res)=>{
   res.json("hello")
 })
 
-app.listen(PORT, () => console.log(`server is running on port ${PORT}`));
+app.listen(() => console.log(`server is running on port `));
