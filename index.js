@@ -9,7 +9,11 @@ dotenv.config();
 
 const app = express();
 app.use(
-  cors()
+  cors({
+    origin: ["https://bloggit-server.vercel.app"],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
 ); // to eliminate the cors error through by the browser
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
