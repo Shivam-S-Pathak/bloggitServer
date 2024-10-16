@@ -9,11 +9,7 @@ dotenv.config();
 
 const app = express();
 app.use(
-  cors({
-    origin: ["http://localhost:5173"],
-    methods: ["POST", "GET"],
-    credentials: true,
-  })
+  cors()
 ); // to eliminate the cors error through by the browser
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
