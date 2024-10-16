@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: ["https://bloggit-client.vercel.app"],
+    origin: ["http://bloggit-client.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true,
   })
