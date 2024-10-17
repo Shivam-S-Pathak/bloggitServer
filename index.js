@@ -12,10 +12,13 @@ app.use(cors()); // to eliminate the cors error through by the browser
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", Router);
-const PORT = 9000;
+const PORT = process.env.PORT || 9000;
 const USERNAME = process.env.DB_USERNAME;
 const PASSWORD = process.env.DB_PASSWORD;
 
 Connection(USERNAME, PASSWORD);
-
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
