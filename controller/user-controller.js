@@ -6,7 +6,7 @@ import Token from "../model/token.js";
 
 dotenv.config();
 
-const signupUser = async (request, response) => {
+const SignUser = async (request, response) => {
   try {
     const hashedPassword = await bcrypt.hash(request.body.password, 10);
     const user = {
@@ -22,7 +22,7 @@ const signupUser = async (request, response) => {
   }
 };
 
-export const loginUser = async (request, response) => {
+export const LogUser = async (request, response) => {
   try {
     // Find user by username
     let user = await User.findOne({ username: request.body.username });
@@ -70,4 +70,4 @@ export const loginUser = async (request, response) => {
   }
 };
 
-export default signupUser;
+export default SignUser;
