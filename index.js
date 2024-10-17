@@ -12,7 +12,7 @@ app.use(cors()); // to eliminate the cors error through by the browser
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", Router);
-const PORT = process.env.PORT || 9000;
+const PORT = 9000;
 const USERNAME = process.env.DB_USERNAME;
 const PASSWORD = process.env.DB_PASSWORD;
 
