@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
 
-app.use("https://bloggit-client.vercel.app", Router);
+app.use("https://bloggit-server.vercel.app", Router);
 
 const PORT = process.env.PORT || 9000;
 const USERNAME = process.env.DB_USERNAME;
