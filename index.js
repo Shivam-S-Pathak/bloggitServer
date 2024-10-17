@@ -8,16 +8,18 @@ import Router from "./routes/route.js";
 dotenv.config();
 
 const app = express();
-app.use(
-  cors({
-    origin: ["http://bloggit-client.vercel.app/login"],
-    methods: ["POST", "GET"],
-    credentials: true,
-  })
-); // to eliminate the cors error through by the browser
+app.use(cors()); 
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+app.get('/', (req, res) => {
+  res.send("Hello, world!"); 
+});
+
+
 app.use("/", Router);
+
 const PORT = process.env.PORT || 9000;
 const USERNAME = process.env.DB_USERNAME;
 const PASSWORD = process.env.DB_PASSWORD;
