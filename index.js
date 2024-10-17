@@ -8,17 +8,15 @@ import Router from "./routes/route.js";
 dotenv.config();
 
 const app = express();
-app.use(cors()); 
+app.use(cors());
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-app.get('/', (req, res) => {
-  res.send("Hello, world!"); 
+app.get("/", (req, res) => {
+  res.send("Hello, world!");
 });
 
-
-app.use("/", Router);
+app.use("https://bloggit-client.vercel.app", Router);
 
 const PORT = process.env.PORT || 9000;
 const USERNAME = process.env.DB_USERNAME;
