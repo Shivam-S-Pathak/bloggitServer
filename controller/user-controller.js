@@ -6,7 +6,7 @@ import Token from "../model/token.js";
 
 dotenv.config();
 
-const SignUser = async (request, response) => {
+export const SignUser = async (request, response) => {
   try {
     const hashedPassword = await bcrypt.hash(request.body.password, 10);
     const user = {
@@ -69,5 +69,3 @@ export const LogUser = async (request, response) => {
     return response.status(500).json({ msg: "Error while logging in" });
   }
 };
-
-export default SignUser;
