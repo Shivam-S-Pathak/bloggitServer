@@ -34,4 +34,13 @@ export const getBlogs = async (resquest, response) => {
   }
 };
 
+export const getPost = async (request, response) => {
+  try {
+    const post = await blogPost.findById(request.params.id);
+    return response.status(200).json(post);
+  } catch (error) {
+    return response.status(500).json({ msg: error.message });
+  }
+};  
+
 export default Blog;
