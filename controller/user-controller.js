@@ -39,17 +39,17 @@ export const LogUser = async (request, response) => {
         { expiresIn: "15m" }
       );
 
-      const refreshToken = jwt.sign(
-        { id: user._id },
-        process.env.REFRESH_SECRET_KEY
-      );
+      // const refreshToken = jwt.sign(
+      //   { id: user._id },
+      //   process.env.REFRESH_SECRET_KEY
+      // );
 
-      const newToken = new Token({ token: refreshToken });
-      await newToken.save();
+      // const newToken = new Token({ token: refreshToken });
+      // await newToken.save();
 
       return response.status(200).json({
         accessToken: accessToken,
-        refreshToken: refreshToken,
+        // refreshToken: refreshToken,
         name: user.username,
         email: user.email,
       });
