@@ -25,7 +25,11 @@ const blogSchema = mongoose.Schema({
     type: Date,
     required: true,
   },
-  author: {
+  username: {
+    type: String,
+    required: true,
+  },
+  editor: {
     type: String,
     required: true,
   },

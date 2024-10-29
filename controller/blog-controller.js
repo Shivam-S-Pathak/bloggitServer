@@ -2,7 +2,8 @@ import blogPost from "../model/blog.js";
 
 const Blog = async (request, response) => {
   try {
-    const { title, discription, body, category, date, author } = request.body;
+    const { title, discription, body, category, date, username, editor } =
+      request.body;
     // const coverImage = request.file?.path;
 
     const post = new blogPost({
@@ -11,7 +12,8 @@ const Blog = async (request, response) => {
       body,
       Category: category,
       date,
-      author,
+      username,
+      editor,
       // coverImage,
     });
     console.log(post);
@@ -41,6 +43,14 @@ export const getPost = async (request, response) => {
   } catch (error) {
     return response.status(500).json({ msg: error.message });
   }
-};  
+};
 
+export const getMyPosts = async (request, response) => {
+  try {
+    const myPosts = await blogPost.find({ username: request.query.username });
+    response.status(200).json(myPosts);
+  } catch (error) {
+    return response.status(500).json({ msg: error.message });
+  }
+};
 export default Blog;
