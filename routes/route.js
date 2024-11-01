@@ -5,6 +5,8 @@ import {
   getBlogs,
   getPost,
   getMyPosts,
+  deleteBlog,
+  updateBlog
 } from "../controller/blog-controller.js";
 // import multer from "multer";
 // const upload = multer({ dest: "../uploads" });
@@ -19,4 +21,6 @@ router.post("/createblog", Blog);
 router.get("/posts", getBlogs);
 router.get("/post/:id", getPost);
 router.get("/myblogs/:username", getMyPosts);
+router.delete("/delete/:id", deleteBlog);
+router.put("/update/:id" , updateBlog)
 export default router;
