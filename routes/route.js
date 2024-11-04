@@ -6,8 +6,15 @@ import {
   getPost,
   getMyPosts,
   deleteBlog,
-  updateBlog
+  updateBlog,
 } from "../controller/blog-controller.js";
+import {
+  journal,
+  getJournals,
+  getJournaldetails,
+  updateJournal,
+  deleteJournal,
+} from "../controller/journal-controller.js";
 // import multer from "multer";
 // const upload = multer({ dest: "../uploads" });
 
@@ -22,5 +29,11 @@ router.get("/posts", getBlogs);
 router.get("/post/:id", getPost);
 router.get("/myblogs/:username", getMyPosts);
 router.delete("/delete/:id", deleteBlog);
-router.put("/update/:id" , updateBlog)
+router.put("/update/:id", updateBlog);
+router.post("/createJournal", journal);
+router.get("/myJournal/:username", getJournals);
+router.get("/journal/:id", getJournaldetails);
+router.put("/updateJournal/:id", updateJournal);
+router.delete("/deleteJournal/:id", deleteJournal);
+
 export default router;

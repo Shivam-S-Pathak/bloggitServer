@@ -2,7 +2,6 @@ import blogPost from "../model/blog.js";
 
 const Blog = async (request, response) => {
   try {
-    
     const { title, discription, body, category, date, username, editor } =
       request.body;
     // const coverImage = request.file?.path;
@@ -93,11 +92,11 @@ export const updateBlog = async (request, response) => {
       return response.status(404).json({ msg: "Post not found" });
     }
 
-    response
+    return response
       .status(200)
       .json({ msg: "Post updated successfully", post: result });
   } catch (error) {
-    response.status(500).json({ msg: error.message });
+    return response.status(500).json({ msg: error.message });
   }
 };
 
