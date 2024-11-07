@@ -7,6 +7,9 @@ import {
   getMyPosts,
   deleteBlog,
   updateBlog,
+  addComment,
+  getComments,
+  deleteComment,
 } from "../controller/blog-controller.js";
 import {
   journal,
@@ -35,5 +38,8 @@ router.get("/myJournal/:username", getJournals);
 router.get("/journal/:id", getJournaldetails);
 router.put("/updateJournal/:id", updateJournal);
 router.delete("/deleteJournal/:id", deleteJournal);
+router.post("/newComment", addComment);
+router.get("/getComment/:id", getComments);
+router.delete("/deleteComment/:id", deleteComment);
 
 export default router;

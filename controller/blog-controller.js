@@ -1,4 +1,6 @@
+import { request } from "express";
 import blogPost from "../model/blog.js";
+import commentPost from "../model/comment.js";
 
 const Blog = async (request, response) => {
   try {
@@ -16,7 +18,6 @@ const Blog = async (request, response) => {
       editor,
       // coverImage,
     });
-    console.log(post);
     await post.save();
 
     return response.status(200).json("blog posted successfully");
@@ -97,6 +98,38 @@ export const updateBlog = async (request, response) => {
       .json({ msg: "Post updated successfully", post: result });
   } catch (error) {
     return response.status(500).json({ msg: error.message });
+  }
+};
+export const addComment = async (request, response) => {
+  try {
+    const newComment = new commentPost(request.body);
+    await newComment.save();
+
+    response.status(200).json({ msg: "comment is saved successfully" });
+  } catch (error) {
+    response.status(500).json({ msg: error.message });
+  }
+};
+
+export const getComments = async (request, response) => {
+  try {
+    const result = await commentPost.find({ id: request.query.id });
+    response.status(200).json(result);
+  } catch (error) {
+    return response.status(500).json({ msg: error.message });
+  }
+};
+
+export const deleteComment = async (request, response) => {
+  try {
+    const commId = request.params.id;
+    let result = await commentPost.findByIdAndDelete(commId);
+    if (!result) {
+      return response.status(404).json({ msg: "comment not found" });
+    }
+    response.status(200).json({ msg: "Post deleted successfully" });
+  } catch (error) {
+    response.status(500).json({ msg: error.message });
   }
 };
 
