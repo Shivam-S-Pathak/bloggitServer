@@ -1,6 +1,6 @@
-import { request } from "express";
 import blogPost from "../model/blog.js";
 import commentPost from "../model/comment.js";
+import likepost from "../model/like.js";
 
 const Blog = async (request, response) => {
   try {
@@ -130,6 +130,23 @@ export const deleteComment = async (request, response) => {
     response.status(200).json({ msg: "Post deleted successfully" });
   } catch (error) {
     response.status(500).json({ msg: error.message });
+  }
+};
+
+export const toggleLike = async (request, response) => {
+  try {
+    const { postId, like, userId } = request.body;
+    const newLike = new likepost({
+      postId,
+      like,
+      userId,
+    });
+    await newLike.save();
+
+    return response.status(200).json("like saved successfully");
+  } catch (error) {
+    console.log(error);
+    return response.status(500).json(error.code);
   }
 };
 
