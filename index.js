@@ -8,14 +8,14 @@ import Router from "./routes/route.js";
 dotenv.config();
 
 const app = express();
-app.use(
-  cors({
-    origin: ["https://bloggitstories.vercel.app"],
-    methods: ["POST", "GET", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
-// app.use(cors());
+// app.use(
+//   cors({
+//     origin: ["https://bloggitstories.vercel.app"],
+//     methods: ["POST", "GET", "PUT", "DELETE"],
+//     credentials: true,
+//   })
+// );
+app.use(cors());
 
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
