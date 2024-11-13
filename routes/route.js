@@ -10,7 +10,8 @@ import {
   addComment,
   getComments,
   deleteComment,
-  toggleLike,
+  likepost,
+  unlikepost,
 } from "../controller/blog-controller.js";
 import {
   journal,
@@ -42,6 +43,6 @@ router.delete("/deleteJournal/:id", deleteJournal);
 router.post("/newComment", addComment);
 router.get("/getComment/:id", getComments);
 router.delete("/deleteComment/:id", deleteComment);
-router.post("toggleLike", toggleLike);
-
+router.put("/like/:id", likepost);
+router.put("/unlike/:id", unlikepost);
 export default router;

@@ -1,6 +1,6 @@
+import { request, response } from "express";
 import blogPost from "../model/blog.js";
 import commentPost from "../model/comment.js";
-import likepost from "../model/like.js";
 
 const Blog = async (request, response) => {
   try {
@@ -133,20 +133,58 @@ export const deleteComment = async (request, response) => {
   }
 };
 
-export const toggleLike = async (request, response) => {
+export const likepost = async (request, response) => {
   try {
-    const { postId, like, userId } = request.body;
-    const newLike = new likepost({
-      postId,
-      like,
-      userId,
-    });
-    await newLike.save();
+    const { id, username } = request.body;
 
-    return response.status(200).json("like saved successfully");
+    const post = await blogPost.findById(id);
+
+    if (!post) {
+      return response.status(404).json({ error: "Post not found" });
+    }
+
+    // Check if the user has already liked the post
+    if (!post.likedBy.includes(username)) {
+      post.likedBy.push(username);
+
+      await post.save();
+
+      return response.status(200).json({ msg: "post is liked successfully" });
+    } else {
+      return response
+        .status(400)
+        .json({ error: "User has already liked the post" });
+    }
   } catch (error) {
-    console.log(error);
-    return response.status(500).json(error.code);
+    console.error("Error liking post:", error);
+    return response.status(500).json({ error: "Server error" });
+  }
+};
+
+export const unlikepost = async (request, response) => {
+  try {
+    const { id, username } = request.body;
+
+    const post = await blogPost.findById(id);
+
+    if (!post) {
+      return response.status(404).json({ error: "Post not found" });
+    }
+
+    // Check if the user has liked the post
+    const index = post.likedBy.indexOf(username);
+    if (index !== -1) {
+      post.likedBy.splice(index, 1);
+      await post.save();
+      return response.status(200).json({ msg: "like removed succefully " });
+    } else {
+      return response
+        .status(400)
+        .json({ error: "User has not liked the post" });
+    }
+  } catch (error) {
+    console.error("Error unliking post:", error);
+    return response.status(500).json({ error: "Server error" });
   }
 };
 

@@ -33,14 +33,12 @@ const blogSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  isLiked: {
-    type: [String],
-    default: [],
-  },
-  likeCount: {
-    type: Number,
-    default: 0,
-  },
+  likedBy: [
+    {
+      type: String,
+      required: false,
+    },
+  ],
 });
 
 const blogPost = mongoose.model("Blogdata", blogSchema, "Blogdata");
