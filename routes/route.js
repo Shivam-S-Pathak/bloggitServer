@@ -1,5 +1,5 @@
 import express from "express";
-import { SignUser, LogUser } from "../controller/user-controller.js";
+import { SignUser, LogUser  , validateEmail , mailSender ,setNewPass} from "../controller/user-controller.js";
 import Blog from "../controller/blog-controller.js";
 import {
   getBlogs,
@@ -20,6 +20,7 @@ import {
   updateJournal,
   deleteJournal,
 } from "../controller/journal-controller.js";
+import { sendOtp, verifyOtp } from "../controller/otp-controller.js";
 // import multer from "multer";
 // const upload = multer({ dest: "../uploads" });
 
@@ -45,4 +46,9 @@ router.get("/getComment/:id", getComments);
 router.delete("/deleteComment/:id", deleteComment);
 router.put("/like/:id", likepost);
 router.put("/unlike/:id", unlikepost);
+router.post("/send-otp/:email", sendOtp);
+router.post("/verify-otp", verifyOtp);
+router.post("/validateEmail" , validateEmail);
+router.post("/send-mail" , mailSender)
+router.post("/set-pass" , setNewPass);
 export default router;
