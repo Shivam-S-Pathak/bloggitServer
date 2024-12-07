@@ -223,7 +223,7 @@ export const mailSender = async (request, response) => {
     console.error("Error sending email:", error);
     return response
       .status(500)
-      .json({ success: false, message: "Failed to send email." });
+      .json({error });
   }
 };
 
