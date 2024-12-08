@@ -4,6 +4,11 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import Token from "../model/token.js";
 import nodemailer from "nodemailer";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -219,7 +224,7 @@ export const mailSender = async (request, response) => {
       .status(200)
       .json({ success: true, message: "Email sent successfully!" });
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.log("Error sending email:", error);
     return response.status(500).json({ error });
   }
 };
