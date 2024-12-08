@@ -206,12 +206,11 @@ export const mailSender = async (request, response) => {
       attachments: [
         {
           filename: "image.png",
-          path: "image.png",
+          path: "server/image.png",
           cid: "logo",
         },
       ],
     };
-
 
     const info = await transporter.sendMail(mailOptions);
     console.log("Email sent: ", info.response);
@@ -221,9 +220,7 @@ export const mailSender = async (request, response) => {
       .json({ success: true, message: "Email sent successfully!" });
   } catch (error) {
     console.error("Error sending email:", error);
-    return response
-      .status(500)
-      .json({error });
+    return response.status(500).json({ error });
   }
 };
 
