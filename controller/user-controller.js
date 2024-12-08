@@ -206,7 +206,7 @@ export const mailSender = async (request, response) => {
       attachments: [
         {
           filename: "image.png",
-          path: "server/image.png",
+          path: "../image.png",
           cid: "logo",
         },
       ],
