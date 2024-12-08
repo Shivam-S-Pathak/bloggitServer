@@ -191,7 +191,7 @@ export const mailSender = async (request, response) => {
   try {
     // Nodemailer configuration
     const transporter = nodemailer.createTransport({
-      service: "Gmail",
+      service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
