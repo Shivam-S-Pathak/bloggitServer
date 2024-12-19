@@ -9,10 +9,10 @@ const blogSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  // coverImage: {
-  //   type: String,
-  //   required: true,
-  // },
+  coverImage: {
+    type: String,
+    required: true,
+  },
   Category: {
     type: String,
     required: true,

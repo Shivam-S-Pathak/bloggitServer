@@ -5,6 +5,7 @@ import {
   validateEmail,
   mailSender,
   setNewPass,
+  sendFeedback,
 } from "../controller/user-controller.js";
 import Blog from "../controller/blog-controller.js";
 import {
@@ -18,6 +19,7 @@ import {
   deleteComment,
   likepost,
   unlikepost,
+  upload,
 } from "../controller/blog-controller.js";
 import {
   journal,
@@ -36,12 +38,12 @@ router.post("/signup", SignUser);
 router.post("/login", LogUser);
 
 // router.post("/createblog", upload.single("coverImage"), Blog);
-router.post("/createblog", Blog);
+router.post("/createblog", upload.single("coverImage"), Blog);
 router.get("/posts", getBlogs);
 router.get("/post/:id", getPost);
 router.get("/myblogs/:username", getMyPosts);
 router.delete("/delete/:id", deleteBlog);
-router.put("/update/:id", updateBlog);
+router.put("/update/:id", upload.single("coverImage"), updateBlog);
 router.post("/createJournal", journal);
 router.get("/myJournal/:username", getJournals);
 router.get("/journal/:id", getJournaldetails);
@@ -56,4 +58,5 @@ router.post("/send-otp/:email", sendOtp);
 router.post("/validateEmail", validateEmail);
 router.post("/send-mail", mailSender);
 router.post("/set-pass", setNewPass);
+router.post("/send-feedback", sendFeedback);
 export default router;

@@ -1,12 +1,23 @@
-import { request, response } from "express";
 import blogPost from "../model/blog.js";
 import commentPost from "../model/comment.js";
+import multer from "multer";
+import cloudinary from "../config/cloudinary.js";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "Events", // Folder name in Cloudinary
+    allowed_formats: ["jpg", "jpeg", "png"],
+  },
+});
+export const upload = multer({ storage });
 
 const Blog = async (request, response) => {
   try {
     const { title, discription, body, category, date, username, editor } =
       request.body;
-    // const coverImage = request.file?.path;
+    const coverImage = await cloudinary.uploader.upload(request.file.path);
 
     const post = new blogPost({
       title,
@@ -16,7 +27,7 @@ const Blog = async (request, response) => {
       date,
       username,
       editor,
-      // coverImage,
+      coverImage: coverImage.secure_url,
     });
     await post.save();
 
@@ -75,6 +86,7 @@ export const updateBlog = async (request, response) => {
 
     const { title, discription, body, category, username, editor } =
       request.body;
+    const coverImage = await cloudinary.uploader.upload(request.file.path);
 
     const result = await blogPost.findByIdAndUpdate(
       postId,
@@ -85,6 +97,7 @@ export const updateBlog = async (request, response) => {
         category,
         username,
         editor,
+        coverImage: coverImage.secure_url,
       },
       { new: true }
     );

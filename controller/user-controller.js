@@ -186,7 +186,9 @@ export const mailSender = async (request, response) => {
 
       <!-- Footer -->
       <div class="footer">
-        <p>Need help? Contact us at shivampathak2100@gmail.com</p>
+        <p>Need assistance? <a href="mailto:${
+          process.env.EMAIL_ADMIN
+        }">Contact us</a></p>
         <p>© ${new Date().getFullYear()} BloggIT. All rights reserved.</p>
       </div>
     </div>
@@ -258,5 +260,162 @@ export const setNewPass = async (request, response) => {
       success: false,
       message: "An internal server error occurred while updating the password.",
     });
+  }
+};
+
+export const sendFeedback = async (req, res) => {
+  const { feedback, email } = req.body;
+
+  if (!feedback || !email) {
+    return res
+      .status(400)
+      .json({ message: "Feedback and email are required." });
+  }
+  const emailTemplate = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You for Your Feedback</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header img {
+      width: 150px;
+    }
+    h2 {
+      text-align: center;
+      color: #4caf50;
+    }
+    p {
+      margin: 15px 0;
+      color: #555;
+    }
+    .thank-you-message {
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #e8f5e9;
+      color: #4caf50;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #777;
+      text-align: center;
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+    }
+    .footer a {
+      color: #4caf50;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img
+        src="cid:logo"
+        alt="BloggIT Logo"
+      />
+    </div>
+    <!-- Main Content -->
+    <h2>Thank You for Your Feedback!</h2>
+    <p>Dear User,</p>
+    <p>
+      We sincerely appreciate you taking the time to provide us with your valuable feedback. Your thoughts and suggestions are incredibly important to us as we strive to make BloggIT better for everyone.
+    </p>
+    <div class="thank-you-message">
+      Your feedback helps us grow and improve!
+    </div>
+    <p>If you have any further suggestions or questions, feel free to reach out to us at any time.</p>
+    <p>Thank you once again for supporting BloggIT!</p>
+    <p>Warm regards, <br />The BloggIT Team</p>
+    <!-- Footer -->
+    <div class="footer">
+      <p>Need assistance? <a href="mailto:${
+        process.env.EMAIL_ADMIN
+      }">Contact us</a></p>
+      <p>&copy; ${new Date().getFullYear()} BloggIT. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  try {
+    // Create a Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail", // Use your email service provider
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    // Email to the user
+    const userMailOptions = {
+      from: `"BloggIT Support" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: "Thank You for Your Feedback!",
+      html: emailTemplate,
+      attachments: [
+        {
+          filename: "image.png",
+          path: path.resolve(__dirname, "../image.png"),
+          cid: "logo",
+        },
+      ],
+    };
+
+    const adminMailOptions = {
+      from: `"BloggIT Support" <${process.env.EMAIL_USER}>`,
+      to: `${process.env.EMAIL_ADMIN}`, // Admin email
+      subject: "New Feedback Received",
+      text: `You have received new feedback from a user.
+
+User Email: ${email}
+Feedback: ${feedback}
+
+Best regards,
+Feedback System`,
+    };
+
+    // Send both emails
+    await transporter.sendMail(userMailOptions);
+    await transporter.sendMail(adminMailOptions);
+
+    return res
+      .status(200)
+      .json({ message: "Feedback submitted and emails sent successfully." });
+  } catch (error) {
+    console.error("Error sending emails:", error);
+    return res.status(500).json({ message: "Failed to send emails.", error });
   }
 };
