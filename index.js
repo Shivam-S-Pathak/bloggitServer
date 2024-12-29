@@ -11,10 +11,12 @@ const app = express();
 app.use(
   cors({
     origin: ["https://bloggitstories.vercel.app"],
+    // origin: ["http://localhost:5173"],
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
   })
 );
+
 // app.use(cors());
 
 app.use(bodyParser.json({ extended: true }));
