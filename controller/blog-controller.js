@@ -17,8 +17,12 @@ const Blog = async (request, response) => {
   try {
     const { title, discription, body, category, date, username, editor } =
       request.body;
-    const coverImage = await cloudinary.uploader.upload(request.file.path);
-
+    const coverImage = await cloudinary.uploader
+      .upload(request.file.path)
+      .catch((error) => {
+        console.error("Cloudinary Upload Error:", error);
+        throw new Error("Cloudinary upload failed");
+      });
     const post = new blogPost({
       title,
       discription,

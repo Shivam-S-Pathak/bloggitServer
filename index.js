@@ -13,10 +13,11 @@ app.use(
     origin: ["https://bloggitstories.vercel.app"],
     // origin: ["http://localhost:5173"],
     methods: ["POST", "GET", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
-
+app.options("*", cors());
 // app.use(cors());
 
 app.use(bodyParser.json({ extended: true }));
