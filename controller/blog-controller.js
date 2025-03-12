@@ -90,7 +90,7 @@ export const updateBlog = async (request, response) => {
 
     const { title, discription, body, category, username, editor } =
       request.body;
-    const coverImage = await cloudinary.uploader.upload(request.file.path);
+    // const coverImage = await cloudinary.uploader.upload(request.file.path);
 
     const result = await blogPost.findByIdAndUpdate(
       postId,
@@ -101,7 +101,7 @@ export const updateBlog = async (request, response) => {
         category,
         username,
         editor,
-        coverImage: coverImage.secure_url,
+        // coverImage: coverImage.secure_url,
       },
       { new: true }
     );

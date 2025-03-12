@@ -19,7 +19,6 @@ import {
   deleteComment,
   likepost,
   unlikepost,
-  upload,
 } from "../controller/blog-controller.js";
 import {
   journal,
@@ -43,7 +42,7 @@ router.get("/posts", getBlogs);
 router.get("/post/:id", getPost);
 router.get("/myblogs/:username", getMyPosts);
 router.delete("/delete/:id", deleteBlog);
-router.put("/update/:id", upload.single("coverImage"), updateBlog);
+router.put("/update/:id", updateBlog);
 router.post("/createJournal", journal);
 router.get("/myJournal/:username", getJournals);
 router.get("/journal/:id", getJournaldetails);
