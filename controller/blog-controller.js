@@ -4,25 +4,25 @@ import multer from "multer";
 import cloudinary from "../config/cloudinary.js";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: "Events", // Folder name in Cloudinary
-    allowed_formats: ["jpg", "jpeg", "png"],
-  },
-});
-export const upload = multer({ storage });
+// const storage = new CloudinaryStorage({
+//   cloudinary: cloudinary,
+//   params: {
+//     folder: "Events", // Folder name in Cloudinary
+//     allowed_formats: ["jpg", "jpeg", "png"],
+//   },
+// });
+// export const upload = multer({ storage });
 
 const Blog = async (request, response) => {
   try {
     const { title, discription, body, category, date, username, editor } =
       request.body;
-    const coverImage = await cloudinary.uploader
-      .upload(request.file.path)
-      .catch((error) => {
-        console.error("Cloudinary Upload Error:", error);
-        throw new Error("Cloudinary upload failed");
-      });
+    // const coverImage = await cloudinary.uploader
+    //   .upload(request.file.path)
+    //   .catch((error) => {
+    //     console.error("Cloudinary Upload Error:", error);
+    //     throw new Error("Cloudinary upload failed");
+    //   });
     const post = new blogPost({
       title,
       discription,
@@ -31,7 +31,7 @@ const Blog = async (request, response) => {
       date,
       username,
       editor,
-      coverImage: coverImage.secure_url,
+      // coverImage: coverImage.secure_url,
     });
     await post.save();
 

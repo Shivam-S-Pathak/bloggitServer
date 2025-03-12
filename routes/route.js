@@ -38,7 +38,7 @@ router.post("/signup", SignUser);
 router.post("/login", LogUser);
 
 // router.post("/createblog", upload.single("coverImage"), Blog);
-router.post("/createblog", upload.single("coverImage"), Blog);
+router.post("/createblog", Blog);
 router.get("/posts", getBlogs);
 router.get("/post/:id", getPost);
 router.get("/myblogs/:username", getMyPosts);
