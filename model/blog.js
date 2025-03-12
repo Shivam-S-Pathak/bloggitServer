@@ -11,7 +11,7 @@ const blogSchema = mongoose.Schema({
   },
   coverImage: {
     type: String,
-    required: true,
+    required: false,
   },
   Category: {
     type: String,
