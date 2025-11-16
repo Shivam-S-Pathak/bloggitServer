@@ -70,7 +70,7 @@ export const LogUser = async (request, response) => {
   } catch (error) {
     console.error("Error while logging in:", error);
     console.log(error);
-    return response.status(500).json({ msg: "Error while logging in" });
+    return response.status(500).json({ msg: "Error while logging in",error });
   }
 };
 
