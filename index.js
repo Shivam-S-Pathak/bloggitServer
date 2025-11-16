@@ -8,17 +8,17 @@ import Router from "./routes/route.js";
 dotenv.config();
 
 const app = express();
-app.use(
-  cors({
-    origin: 'https://bloggitstories.vercel.app',
-    // origin: ["http://localhost:5173"],
-    methods: ["POST", "GET", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://bloggitstories.vercel.app",
+//     // origin: ["http://localhost:5173"],
+//     methods: ["POST", "GET", "PUT", "DELETE"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     credentials: true,
+//   })
+// );
 // app.options("*", cors());
-// app.use(cors());
+app.use(cors());
 
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
