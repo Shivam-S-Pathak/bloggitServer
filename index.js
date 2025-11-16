@@ -8,12 +8,12 @@ import Router from "./routes/route.js";
 dotenv.config();
 
 const app = express();
-// app.use(
-//   cors({
-//     origin: "https://bloggitstories.vercel.app",
-//   })
-// );
-app.use("*", cors());
+app.use(
+  cors({
+    origin: "https://bloggitstories.vercel.app",
+  })
+);
+// app.use("*", cors());
 // app.use(cors());
 
 app.use(bodyParser.json({ extended: true }));
