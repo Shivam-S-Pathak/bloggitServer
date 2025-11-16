@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: ["https://bloggitstories.vercel.app"],
+    origin: ["https://bloggitstories.vercel.app/"],
     // origin: ["http://localhost:5173"],
     // methods: ["POST", "GET", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
